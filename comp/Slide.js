@@ -59,7 +59,7 @@ export default class Slide extends React.Component {
 
     render() {
         return (
-            <View style={{marginTop:20}}>
+            <View style={{marginTop:20}} onTouchStart={e=>{this.touchStart(e)}} onTouchEnd={e=>{this.touchEnd(e)}}>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.left}]}
                                 source={require('../image/s1.jpg')}/>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.center}]}
@@ -70,15 +70,15 @@ export default class Slide extends React.Component {
         )
     }
 
-    touchStart(event) {
+    touchStart(e) {
         this.setState({
-            startX: event.touchs[0].pageX,
-            startY: event.touchs[0].pageY
+            startX: e.nativeEvent.pageX,
+            startY: e.nativeEvent.pageY
         });
     }
 
-    touchEnd(evnet) {
-        var direction = this.GetSlideDirection(this.state.startX, this.state.startY, event.touchs[0].pageX, evnet.touchs[0].pageY);
+    touchEnd(e) {
+        var direction = this.GetSlideDirection(this.state.startX, this.state.startY, e.nativeEvent.pageX, e.nativeEvent.pageY);
         switch (direction) {
             case 0:
                 console.log("没滑动");
