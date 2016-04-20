@@ -11,8 +11,10 @@ import React ,{
 } from 'react-native';
 
 var mokeData = [
-    {imgUrl: "http://m.360buyimg.com/mobilecms/s720x350_jfs/t2740/121/350734672/100166/6b565742/570ef69dNa89cd4d3.jpg"},
-    {imgUrl: "http://m.360buyimg.com/mobilecms/s720x350_jfs/t2740/121/350734672/100166/6b565742/570ef69dNa89cd4d3.jpg"}
+    {imgUrl: '../image/s1.jpg'},
+    {imgUrl: '../image/s2.jpg'},
+    {imgUrl: '../image/s3.jpg'},
+    {imgUrl: '../image/s4.jpg'}
 ];
 
 export default class Slide extends React.Component {
@@ -29,10 +31,16 @@ export default class Slide extends React.Component {
             startX: 0,
             startY: 0
         };
+
+        this.selectData = [
+            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'},
+            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}
+        ];
     }
 
     componentDidMount() {
-        Animated.parallel([
+        var ani = Animated.parallel([
             Animated.timing(
                 this.state.left,
                 {
@@ -54,18 +62,34 @@ export default class Slide extends React.Component {
                     toValue: this.screenWidth * 2
                 }
             )
-        ]).start();
+        ]);
+
+        var _this = this;
+
+        ani.start(function () {
+            _this.selectData = [
+                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'},
+                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}
+            ];
+
+            _this.setState({
+                left: new Animated.Value(-this.screenWidth),
+                center: new Animated.Value(0),
+                right: new Animated.Value(this.screenWidth),
+            });
+        });
     }
 
     render() {
         return (
             <View style={{marginTop:20}} onTouchStart={e=>{this.touchStart(e)}} onTouchEnd={e=>{this.touchEnd(e)}}>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.left}]}
-                                source={require('../image/s1.jpg')}/>
+                                source={{uri:this.selectData[0].imgUrl}}/>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.center}]}
-                                source={require('../image/s2.jpg')}/>
+                                source={{uri:this.selectData[1].imgUrl}}/>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.right}]}
-                                source={require('../image/s3.jpg')}/>
+                                source={{uri:this.selectData[2].imgUrl}}/>
             </View>
         )
     }
