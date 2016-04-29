@@ -29,14 +29,19 @@ export default class Slide extends React.Component {
             center: new Animated.Value(0),
             right: new Animated.Value(this.screenWidth),
             startX: 0,
-            startY: 0
+            startY: 0,
+            selectData: [
+                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'},
+                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}
+            ]
         };
 
-        this.selectData = [
-            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
-            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'},
-            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}
-        ];
+        //this.selectData = [
+        //    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+        //    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'},
+        //    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}
+        //];
     }
 
     componentDidMount() {
@@ -67,29 +72,70 @@ export default class Slide extends React.Component {
         var _this = this;
 
         ani.start(function () {
-            _this.selectData = [
-                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'},
-                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
-                {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}
-            ];
-
             _this.setState({
-                left: new Animated.Value(-this.screenWidth),
-                center: new Animated.Value(0),
-                right: new Animated.Value(this.screenWidth),
+                selectData: [
+                    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'},
+                    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+                    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}
+                ]
             });
+
+            //Animated.parallel([
+            //    Animated.timing(
+            //        _this.state.left,
+            //        {
+            //            duration: 0,
+            //            toValue: -_this.screenWidth
+            //        }
+            //    ),
+            //    Animated.timing(
+            //        _this.state.center,
+            //        {
+            //            duration: 0,
+            //            toValue: 0
+            //        }
+            //    ),
+            //    Animated.timing(
+            //        _this.state.right,
+            //        {
+            //            duration: 0,
+            //            toValue: _this.screenWidth
+            //        }
+            //    )
+            //]).start();
+            ////_this.selectData = [
+            //    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+            //    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+            //    {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'},
+            //];
+            //setTimeout(function () {
+            //    _this.setState({
+            //        left: new Animated.Value(-_this.screenWidth),
+            //        center: new Animated.Value(0),
+            //        right: new Animated.Value(_this.screenWidth),
+            //        selectData: [
+            //            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'},
+            //            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'},
+            //            {imgUrl: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}
+            //        ]
+            //    });
+            //}, 1000);
         });
     }
 
     render() {
+        console.log(this.state.center);
+        //console.log(this.state);
+
         return (
             <View style={{marginTop:20}} onTouchStart={e=>{this.touchStart(e)}} onTouchEnd={e=>{this.touchEnd(e)}}>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.left}]}
-                                source={{uri:this.selectData[0].imgUrl}}/>
+                                source={{uri:this.state.selectData[0].imgUrl}}/>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.center}]}
-                                source={{uri:this.selectData[1].imgUrl}}/>
+                                source={{uri:this.state.selectData[1].imgUrl}}/>
                 <Animated.Image style={[styles.image,{top:0,left:this.state.right}]}
-                                source={{uri:this.selectData[2].imgUrl}}/>
+                                source={{uri:this.state.selectData[2].imgUrl}}/>
+                <Text style={{position: 'absolute',top:0,left:0}}>{this.state.selectData[1].imgUrl}</Text>
             </View>
         )
     }
@@ -155,7 +201,7 @@ export default class Slide extends React.Component {
 var styles = StyleSheet.create({
     image: {
         position: 'absolute',
+        height: Dimensions.get('window').width * .48,
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').width * .48
     }
 });
