@@ -12,36 +12,15 @@ import React, {
     Image,
     Dimensions,
     ScrollView,
-    ListView
+    ListView,
+    TextInput,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 //import Slide from './comp/Slide.js';
 import Swiper from 'react-native-swiper2';
 
 class ReactSample extends Component {
-    //<Swiper style={styles.slide}
-    //        dot={<View style={{backgroundColor:'rgba(255,255,255,.3)', width: 213, height: 13,borderRadius: 7, marginLeft: 7, marginRight: 7,}} />}
-    //        activeDot={<View style={{backgroundColor: '#fff', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-    //        paginationStyle={{bottom: 70}}
-    //        loop={false}>
-    //    <View style={styles.slide}>
-    //        <Image style={styles.image}
-    //               source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'}}/>
-    //    </View>
-    //    <View style={styles.slide}>
-    //        <Image style={styles.image}
-    //               source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}}/>
-    //    </View>
-    //    <View style={styles.slide}>
-    //        <Image style={styles.image}
-    //               source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}}/>
-    //    </View>
-    //</Swiper>
-//<View style={{flexDirection:'row',justifyContent:'center'}}>
-//<Text>1</Text>
-//<Text>2</Text>
-//<Text>3</Text>
-//</View>
     constructor(props) {
         super(props);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -73,69 +52,149 @@ class ReactSample extends Component {
 
     render() {
         return (
-            <View style={{backgroundColor:'#f5f5f5'}}>
-                <View style={styles.slideFloor}>
-                    <Swiper showsButtons={false} autoPlay={true} height={160} showsPagination={true}
-                            paginationStyle={{bottom:5}}>
-                        <Image style={[styles.slide]}
-                               source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'}}></Image>
-                        <Image style={[styles.slide]}
-                               source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}}></Image>
-                        <Image style={[styles.slide]}
-                               source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}}></Image>
-                    </Swiper>
-                </View>
-                <ListView
-                    style={styles.brand}
-                    horizontal={true}
-                    dataSource={this.state.brandFloorData}
-                    renderRow={this.renderBrandCol}
-                    />
-                <View style={styles.s_img_floor}>
-                    <Image
-                        style={styles.s_img_image}
-                        source={{uri:'http://m.360buyimg.com/mobilecms/jfs/t2347/326/2992898079/50254/d334f594/571f3b11N86470658.jpg!q70.jpg'}}/>
-                </View>
-                <View style={styles.superdeal}>
-                    <View style={styles.superdeal_header}>
-                        <Image style={styles.superdeal_clock} source={require('./image/i-clock.png')}/>
-                        <Text style={styles.superdeal_text}>移动秒杀</Text>
-                        <Text style={[styles.superdeal_time,styles.superdeal_time1]}>00</Text>
-                        <Text style={[styles.superdeal_time_span,styles.superdeal_time_span1]}>:</Text>
-                        <Text style={[styles.superdeal_time,styles.superdeal_time2]}>00</Text>
-                        <Text style={[styles.superdeal_time_span,styles.superdeal_time_span2]}>:</Text>
-                        <Text style={[styles.superdeal_time,styles.superdeal_time3]}>00</Text>
+            <View style={styles.page}>
+                <ScrollView
+                    style={styles.pageContent}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
+                    decelerationRate={2}
+                    >
+                    <View style={styles.slideFloor}>
+                        <Swiper showsButtons={false} autoPlay={true} height={160} showsPagination={true}
+                                paginationStyle={{bottom:5}}>
+                            <Image style={[styles.slide]}
+                                   source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2152/204/2759161051/78977/515dddd4/5715fd92N5dfeb274.jpg'}}></Image>
+                            <Image style={[styles.slide]}
+                                   source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2644/79/468187930/126340/ec7e15c3/57160775Nf976d99a.jpg'}}></Image>
+                            <Image style={[styles.slide]}
+                                   source={{uri: 'http://m.360buyimg.com/mobilecms/s720x350_jfs/t2623/25/492723299/127340/65e7c090/571606f1Nb78f4b2f.jpg'}}></Image>
+                        </Swiper>
                     </View>
-                    <ScrollView
-                        style={styles.superdeal_scrolllist}
+                    <View style={styles.superdeal}>
+                        <View style={styles.superdeal_header}>
+                            <Image style={styles.superdeal_clock} source={require('./image/i-clock.png')}/>
+                            <Text style={styles.superdeal_text}>移动秒杀</Text>
+                            <Text style={[styles.superdeal_time,styles.superdeal_time1]}>00</Text>
+                            <Text style={[styles.superdeal_time_span,styles.superdeal_time_span1]}>:</Text>
+                            <Text style={[styles.superdeal_time,styles.superdeal_time2]}>00</Text>
+                            <Text style={[styles.superdeal_time_span,styles.superdeal_time_span2]}>:</Text>
+                            <Text style={[styles.superdeal_time,styles.superdeal_time3]}>00</Text>
+                        </View>
+                        <ScrollView
+                            style={styles.superdeal_scrolllist}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            >
+                            {
+                                this.state.superData.map(function (el, index) {
+                                    return <View key={index}
+                                                 style={{width:116,height:146,paddingLeft:10,paddingRight:10}}>
+                                        <Image style={{width:95,height:95}} source={{uri: el.uri}}/>
+                                        <Text style={{marginTop:0,textAlign:'center',color:'#ed5657'}}>¥39.9</Text>
+                                        <Text
+                                            style={{marginTop:3,textAlign:'center',color:'#888888',textDecorationColor:'#888888',textDecorationLine:'line-through'}}>¥45.9</Text>
+                                    </View>
+                                })
+                            }
+                        </ScrollView>
+                    </View>
+                    <View style={styles.s_img_floor}>
+                        <Image
+                            style={styles.s_img_image}
+                            source={{uri:'http://m.360buyimg.com/mobilecms/jfs/t2347/326/2992898079/50254/d334f594/571f3b11N86470658.jpg!q70.jpg'}}/>
+                    </View>
+                    <ListView
+                        style={styles.brand}
                         horizontal={true}
-                        >
-                        {
-                            this.state.superData.map(function (el, index) {
-                                return <View key={index}>
-                                    <Image style={} source={{uri: el.uri}}/>
-                                </View>
-                            })
-                        }
-                    </ScrollView>
+                        dataSource={this.state.brandFloorData}
+                        renderRow={this.renderBrandCol}
+                        />
+                    <View style={{backgroundColor:'#ff0000',width:Dimensions.get('window').width,height:600}}>
+                    </View>
+                </ScrollView>
+                <View style={styles.page_header}>
+                    <View style={styles.page_header_bg}>
+                        <TextInput style={styles.page_header_input} defaultValue={'搜索商品／店铺'}/>
+                        <TouchableWithoutFeedback onPressIn={this.onloginHandler}>
+                            <Text style={styles.header_login_btn}>登陆</Text>
+                        </TouchableWithoutFeedback>
+                    </View>
                 </View>
             </View>
         );
+    }
+
+    onloginHandler() {
+        alert('点击登陆按钮');
     }
 }
 
 
 //
 ////<Image style={styles.image} source={{uri:"http://m.360buyimg.com/mobilecms/s720x350_jfs/t2383/53/2605014741/115820/c63bee61/57110ad3N1b6060dc.jpg"}}/>
+var screenWidth = Dimensions.get('window').width;
 
 var styles = StyleSheet.create({
+    page: {
+        flex: 1,
+        marginTop: 0
+    },
+    pageContent: {
+        flex: 1
+    },
+    float: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#ee6e73',
+        position: 'absolute',
+        bottom: 10,
+        right: 10
+    },
+    page_header: {
+        position: 'absolute',
+        opacity: 0.8,
+        top: 0,
+        left: 0,
+        width: screenWidth,
+        height: 40
+    },
+    page_header_bg: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#ff0000'
+    },
+    page_header_input: {
+        marginTop: 7,
+        marginLeft: 40,
+        marginRight: 40,
+        paddingLeft: 10,
+        paddingRight: 10,
+        color: '#888888',
+        width: screenWidth - 80,
+        height: 26,
+        backgroundColor: '#ffffff',
+        borderRadius: 9
+    },
+    header_login_btn: {
+        position: 'absolute',
+        width: 30,
+        height: 30,
+        top: 12,
+        right: 4,
+        color: '#ffffff',
+        fontSize: 15
+    },
     slideFloor: {
-        marginTop: 20,
         height: 160
     },
     slide: {
         height: 160,
-        width: Dimensions.get('window').width
+        width: screenWidth
     },
     brand: {
         marginTop: 8,
@@ -143,22 +202,22 @@ var styles = StyleSheet.create({
         borderTopColor: '#f5f5f5'
     },
     brandimg: {
-        width: Dimensions.get('window').width / 3,
-        height: Dimensions.get('window').width / 3 * 1.21
+        width: screenWidth / 3,
+        height: screenWidth / 3 * 1.21
     },
     s_img_floor: {
         marginTop: 0
     },
     s_img_image: {
-        height: Dimensions.get('window').width * 0.375,
-        width: Dimensions.get('window').width
+        height: screenWidth * 0.375,
+        width: screenWidth
     },
     superdeal: {
         marginTop: 0
     },
     superdeal_header: {
         height: 26,
-        backgroundColor:'#ffffff'
+        backgroundColor: '#ffffff'
     },
     superdeal_clock: {
         position: 'absolute',
@@ -171,18 +230,22 @@ var styles = StyleSheet.create({
         position: 'absolute',
         top: 8,
         left: 32,
-        fontSize: 16,
+        fontSize: 15,
         color: '#ca1327'
     },
     superdeal_time: {
         position: 'absolute',
-        top: 6,
-        backgroundColor: '#000000',
-        color: '#ffffff',
+        top: 8,
+        color: '#4F4F4F',
         borderRadius: 4,
-        padding: 1,
-        width: 20,
-        height: 20
+        borderColor: '#4F4F4F',
+        borderWidth: 1,
+        paddingLeft: 2,
+        paddingRight: 2,
+        paddingTop: 1,
+        width: 23,
+        height: 20,
+        fontSize: 12
     },
     superdeal_time1: {
         left: 120
@@ -198,15 +261,16 @@ var styles = StyleSheet.create({
         top: 6,
         color: '#000000'
     },
-    superdeal_time_span1:{
-        left: 143
+    superdeal_time_span1: {
+        left: 144
     },
-    superdeal_time_span2:{
-        left: 173
+    superdeal_time_span2: {
+        left: 174
     },
     superdeal_scrolllist: {
-        marginTop: 0,
-        width: Dimensions.get('window').width
+        backgroundColor: '#ffffff',
+        marginTop: 2,
+        width: screenWidth
     }
 });
 
