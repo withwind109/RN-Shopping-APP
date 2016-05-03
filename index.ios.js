@@ -24,6 +24,8 @@ class ReactSample extends Component {
     constructor(props) {
         super(props);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var ds1 = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 
         this.state = {
             brandFloorData: ds.cloneWithRows([
@@ -40,13 +42,42 @@ class ReactSample extends Component {
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'}
-            ]
+            ],
+            recommendData: ds.cloneWithRows([
+                {
+                    name: '妙洁 点断式平底垃圾袋3040(45cm*50cm*30只*3卷',
+                    uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t2119/3/2712471485/492933/442b9d76/56e7f09dN604ef84a.jpg',
+                    pirce: '19.90'
+                },
+                {
+                    name: '曼秀雷敦（Mentholatum）男士唇膏天然型3.5g（又名：男士润唇膏-天然型）补水 保湿',
+                    uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t397/64/326747545/153396/5c4b6c57/5417acb4Nf1f85c89.jpg',
+                    pirce: '9.90'
+                },
+                {
+                    name: '铠甲勇士溜冰鞋儿童套装轮滑鞋女童旱冰鞋男童 直排轮滑轮鞋可调伸缩加全套装护具 蓝色 M码实际鞋码32-35',
+                    uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t1951/169/1421951073/254846/31790f91/569aeba7N4518d539.jpg',
+                    pirce: '109.90'
+                },
+                {
+                    name: '极美滋 葡式蛋挞皮160g/盒 (20g*8个)',
+                    uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t2152/142/623898679/151049/6df0a741/561df2aaN0cdaa7b2.jpg',
+                    pirce: '29.90'
+                }
+            ])
         };
     }
 
     renderBrandCol(item) {
         return (
             <Image style={styles.brandimg} source={{uri: item.uri}}/>
+        );
+    }
+
+    renderRecommendRow(item) {
+        return (
+            //<View style={{width:100,height:100,backgroundColor:'#00ff00',flex:1}}></View>
+            <Image style={styles.recommend_block} source={{uri:item.uri}}/>
         );
     }
 
@@ -109,6 +140,12 @@ class ReactSample extends Component {
                         horizontal={true}
                         dataSource={this.state.brandFloorData}
                         renderRow={this.renderBrandCol}
+                        />
+                    <ListView
+                        contentContainerStyle ={styles.recommend}
+                        //style={styles.recommend}
+                        dataSource={this.state.recommendData}
+                        renderRow={this.renderRecommendRow}
                         />
                     <View style={{backgroundColor:'#ff0000',width:Dimensions.get('window').width,height:600}}>
                     </View>
@@ -271,6 +308,17 @@ var styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         marginTop: 2,
         width: screenWidth
+    },
+    recommend: {
+        //flexDirection: 'row'
+        //flexWrap: 'nowrap'
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+    recommend_block: {
+        width: screenWidth / 2,
+        height: screenWidth / 2
     }
 });
 
