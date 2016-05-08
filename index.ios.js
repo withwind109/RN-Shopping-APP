@@ -39,30 +39,28 @@ class ReactSample extends Component {
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
-                {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
-                {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'},
                 {uri: 'http://m.360buyimg.com/mobilecms/s220x220_jfs/t2278/291/2062683949/133843/b1a25345/56a04947N16c78740.jpg!q70.jpg'}
             ],
             recommendData: ds.cloneWithRows([
                 {
                     name: '妙洁 点断式平底垃圾袋3040(45cm*50cm*30只*3卷',
                     uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t2119/3/2712471485/492933/442b9d76/56e7f09dN604ef84a.jpg',
-                    pirce: '19.90'
+                    price: '19.90'
                 },
                 {
                     name: '曼秀雷敦（Mentholatum）男士唇膏天然型3.5g（又名：男士润唇膏-天然型）补水 保湿',
                     uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t397/64/326747545/153396/5c4b6c57/5417acb4Nf1f85c89.jpg',
-                    pirce: '9.90'
+                    price: '9.90'
                 },
                 {
                     name: '铠甲勇士溜冰鞋儿童套装轮滑鞋女童旱冰鞋男童 直排轮滑轮鞋可调伸缩加全套装护具 蓝色 M码实际鞋码32-35',
                     uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t1951/169/1421951073/254846/31790f91/569aeba7N4518d539.jpg',
-                    pirce: '109.90'
+                    price: '109.90'
                 },
                 {
                     name: '极美滋 葡式蛋挞皮160g/盒 (20g*8个)',
                     uri: 'http://m.360buyimg.com/mobilecms/s276x276_jfs/t2152/142/623898679/151049/6df0a741/561df2aaN0cdaa7b2.jpg',
-                    pirce: '29.90'
+                    price: '29.90'
                 }
             ])
         };
@@ -76,14 +74,20 @@ class ReactSample extends Component {
 
     renderRecommendRow(item) {
         return (
+            <View style={styles.recommend_block}>
+                <Image style={styles.recommend_block_image} source={{uri:item.uri}}/>
+                <Text style={styles.recommend_block_text} numberOfLines={2}>{item.name}</Text>
+                <Text style={styles.recommend_block_price}>￥ {item.price}</Text>
+                <Text style={styles.recommend_block_btn}>看相识</Text>
+            </View>
             //<View style={{width:100,height:100,backgroundColor:'#00ff00',flex:1}}></View>
-            <Image style={styles.recommend_block} source={{uri:item.uri}}/>
+            //<Image style={styles.recommend_block} source={{uri:item.uri}}/>
         );
     }
 
     render() {
         return (
-            <View style={styles.page}>
+            <View style={styles.viewport}>
                 <ScrollView
                     style={styles.pageContent}
                     showsHorizontalScrollIndicator={false}
@@ -120,7 +124,7 @@ class ReactSample extends Component {
                             {
                                 this.state.superData.map(function (el, index) {
                                     return <View key={index}
-                                                 style={{width:116,height:146,paddingLeft:10,paddingRight:10}}>
+                                                 style={{width:115,height:141,paddingLeft:10,paddingRight:10}}>
                                         <Image style={{width:95,height:95}} source={{uri: el.uri}}/>
                                         <Text style={{marginTop:0,textAlign:'center',color:'#ed5657'}}>¥39.9</Text>
                                         <Text
@@ -141,21 +145,43 @@ class ReactSample extends Component {
                         dataSource={this.state.brandFloorData}
                         renderRow={this.renderBrandCol}
                         />
-                    <ListView
-                        contentContainerStyle ={styles.recommend}
-                        //style={styles.recommend}
-                        dataSource={this.state.recommendData}
-                        renderRow={this.renderRecommendRow}
-                        />
-                    <View style={{backgroundColor:'#ff0000',width:Dimensions.get('window').width,height:600}}>
+                    <View style={styles.recommend}>
+                        <Text style={styles.recommend_title}>已经为您推荐了更新</Text>
+                        <ListView
+                            contentContainerStyle={styles.recommend_list}
+                            dataSource={this.state.recommendData}
+                            renderRow={this.renderRecommendRow}
+                            />
+                    </View>
+                    <View style={{height:46}}>
                     </View>
                 </ScrollView>
                 <View style={styles.page_header}>
                     <View style={styles.page_header_bg}>
+                        <Image style={styles.page_header_scan} source={require('./image/scan-barcode.png')}/>
+                        <Text style={styles.page_header_scan_text}>扫啊扫</Text>
                         <TextInput style={styles.page_header_input} defaultValue={'搜索商品／店铺'}/>
                         <TouchableWithoutFeedback onPressIn={this.onloginHandler}>
                             <Text style={styles.header_login_btn}>登陆</Text>
                         </TouchableWithoutFeedback>
+                    </View>
+                </View>
+                <View style={styles.footer}>
+                    <View style={styles.footer_block}>
+                        <Image style={[styles.footer_image]}
+                               source={{uri:'http://st.360buyimg.com/m/images/index/icon-home01.png'}}/>
+                    </View>
+                    <View style={styles.footer_block}>
+                        <Image style={[styles.footer_image]}
+                               source={{uri:'http://st.360buyimg.com/m/images/index/icon-catergry.png'}}/>
+                    </View>
+                    <View style={styles.footer_block}>
+                        <Image style={[styles.footer_image]}
+                               source={{uri:'http://st.360buyimg.com/m/images/index/icon-cart.png'}}/>
+                    </View>
+                    <View style={styles.footer_block}>
+                        <Image style={[styles.footer_image]}
+                               source={{uri:'http://st.360buyimg.com/m/images/index/icon-me.png'}}/>
                     </View>
                 </View>
             </View>
@@ -173,9 +199,10 @@ class ReactSample extends Component {
 var screenWidth = Dimensions.get('window').width;
 
 var styles = StyleSheet.create({
-    page: {
+    viewport: {
         flex: 1,
-        marginTop: 0
+        marginTop: 10,
+        backgroundColor: '#F5F5F5'
     },
     pageContent: {
         flex: 1
@@ -203,7 +230,21 @@ var styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: '#ff0000'
+        backgroundColor: '#ffffff'
+    },
+    page_header_scan: {
+        position: 'absolute',
+        top: 3,
+        left: 9,
+        width: 22,
+        height: 24
+    },
+    page_header_scan_text: {
+        position: 'absolute',
+        top: 26,
+        left: 5,
+        fontSize:10,
+        color:'#000000'
     },
     page_header_input: {
         marginTop: 7,
@@ -214,8 +255,9 @@ var styles = StyleSheet.create({
         color: '#888888',
         width: screenWidth - 80,
         height: 26,
-        backgroundColor: '#ffffff',
-        borderRadius: 9
+        backgroundColor: '#E0E0E0',
+        borderRadius: 9,
+        fontSize: 13
     },
     header_login_btn: {
         position: 'absolute',
@@ -223,7 +265,7 @@ var styles = StyleSheet.create({
         height: 30,
         top: 12,
         right: 4,
-        color: '#ffffff',
+        color: '#000000',
         fontSize: 15
     },
     slideFloor: {
@@ -253,7 +295,7 @@ var styles = StyleSheet.create({
         marginTop: 0
     },
     superdeal_header: {
-        height: 26,
+        height: 30,
         backgroundColor: '#ffffff'
     },
     superdeal_clock: {
@@ -306,19 +348,77 @@ var styles = StyleSheet.create({
     },
     superdeal_scrolllist: {
         backgroundColor: '#ffffff',
-        marginTop: 2,
+        marginTop: 0,
         width: screenWidth
     },
-    recommend: {
+    recommend: {},
+    recommend_title: {
+        marginTop: 10,
+        height: 20,
+        width: screenWidth,
+        color: '#7f7f7f',
+        textAlign: 'center',
+        fontSize: 12
+    },
+    recommend_list: {
+        marginTop: 0,
         //flexDirection: 'row'
         //flexWrap: 'nowrap'
         justifyContent: 'center',
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        backgroundColor: '#ffffff'
     },
     recommend_block: {
         width: screenWidth / 2,
-        height: screenWidth / 2
+        height: screenWidth / 2 + 50
+    },
+    recommend_block_image: {
+        marginLeft: 10,
+        width: screenWidth / 2 - 20,
+        height: screenWidth / 2 - 20
+    },
+    recommend_block_text: {
+        marginTop: 8,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    recommend_block_price: {
+        marginLeft: 10,
+        marginTop: 6,
+        color: '#ca1327'
+    },
+    recommend_block_btn: {
+        position: 'absolute',
+        right: 13,
+        bottom: 3,
+        borderColor: '#888888',
+        borderWidth: 1,
+        color: '#888888',
+        width: 50,
+        height: 20,
+        textAlign: 'center',
+        lineHeight: 16,
+        fontSize: 12,
+        borderRadius: 3
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        width: screenWidth,
+        height: 46,
+        backgroundColor: '#ffffff',
+        flexDirection: 'row',
+        flexWrap: 'nowrap'
+    },
+    footer_block: {
+        width: screenWidth / 4,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    footer_image: {
+        width: 50,
+        height: 50
     }
 });
 
